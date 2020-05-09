@@ -9,14 +9,28 @@
 source ~/.git-prompt.sh
 
 
-# Powerline status
-#PS1='\[\e[38;5;250m\]\[\e[48;5;240m\] \u \[\e[48;5;238m\]\[\e[38;5;240m\]\[\e[0m\]\[\e[38;5;250m\]\[\e[48;5;238m\] \h \[\e[48;5;166m\]\[\e[38;5;238m\]\[\e[0m\]\[\e[38;5;254m\]\[\e[48;5;166m\] ☎ \[\e[48;5;31m\]\[\e[38;5;166m\]\[\e[0m\]\[\e[38;5;15m\]\[\e[48;5;31m\] ~ \[\e[48;5;237m\]\[\e[38;5;31m\]\[\e[0m\]\[\e[38;5;254m\]\[\e[48;5;237m\] .vim \[\e[48;5;236m\]\[\e[38;5;237m\]\[\e[0m\]\[\e[38;5;15m\]\[\e[48;5;236m\] \$ \[\e[0m\]\[\e[38;5;236m\]\[\e[0m\]'
+# Color coding for better formatting (PS1 in my case)
+BLACK="\[$(tput setaf 0)\]"
+RED="\[$(tput setaf 1)\]"
+GREEN="\[$(tput setaf 2)\]"
+YELLOW="\[$(tput setaf 3)\]"
+BLUE="\[$(tput setaf 4)\]"
+MAGENTA="\[$(tput setaf 5)\]"
+CYAN="\[$(tput setaf 6)\]"
+WHITE="\[$(tput setaf 7)\]"
 
-PS1='\[\e[1m\]\[[\D{%d %H:%M}] \[\e[1;36m\]\u\[\e[1;31m\]@\[\e[1;36m\]\h: \[\e[1;33m\]\w\[\e[1;32m\]\[$(__git_ps1 " (%s)")\[\e[1;36m\]\[\e[1;31m\]> \[\e[0m\]'
+# NORMAL and BOLD text modes
+NORMAL="\[$(tput sgr0)\]"
+BOLD="\[$(tput bold)\]"
 
+# Revamped and much clean bash prompt
+PS1="${BOLD}[${WHITE}\D{%d %H:%M}] ${CYAN}\u${RED}@${CYAN}\h: ${YELLOW}\w${GREEN}$(__git_ps1 " (%s)")${RED}> ${NORMAL}"
+
+# Basic structure of PS1 without color
 #PS1='[\D{%d %H:%M}] \u@\h: \w> '
-export Q__LS_ARGS_LL='--color=tty -F --time-style=long-iso -v --human-readable -lA'
+ 
 
+export Q__LS_ARGS_LL='--color=tty -F --time-style=long-iso -v --human-readable -lA'
 
 export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
 export HISTSIZE=100000                   # big big history
@@ -56,3 +70,10 @@ export EDITOR='vim'
 
 # Corrects the previous console command. Refer: https://github.com/nvbn/thefuck
 eval "$(thefuck --alias)"
+
+#!/bin/bash
+
+BATTINFO=`acpi -b`
+if [[ `echo $BATTINFO | grep Discharging` && `echo $BATTINFO | cut -f 5 -d " "` < 00:15:00 ]] ; then
+    DISPLAY=:0.0 /usr/bin/notify-send "low battery" "$BATTINFO"
+fi
