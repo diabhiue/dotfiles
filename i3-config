@@ -185,4 +185,4 @@ bar {
 
 # Navigate through workspaces
 bindsym $mod+Tab workspace next
-bindsym $mode+Shift+tab workspace prev
+bindsym $mod+Shift+Tab workspace prev
