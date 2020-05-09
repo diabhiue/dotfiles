@@ -13,6 +13,7 @@ set t_Co=256
 set colorcolumn=80      " Draws a line after 80 chars
 set laststatus=2        " For status line & 'itchyny/lightline.vim'
 set noshowmode          " To remove duplicate of statusline below
+set hlsearch            " Highlights the searched keyword
 
 " Syntax complete
 set omnifunc=syntaxcomplete#Complete
