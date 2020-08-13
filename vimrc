@@ -1,3 +1,4 @@
+set nocompatible
 syntax on
 set autoindent
 filetype indent plugin on
@@ -8,7 +9,8 @@ set path+=**
 set wildmenu
 set tags=./tags;/
 set autochdir
-set clipboard=unnamedplus
+set clipboard=exclude:.*
+" set clipboard=unnamedplus
 set t_Co=256
 set colorcolumn=80      " Draws a line after 80 chars
 set laststatus=2        " For status line & 'itchyny/lightline.vim'
@@ -62,3 +64,10 @@ let g:ale_completion_enabled = 1
 
 let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
 
+" Search for visual selection using `//`
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+
+" Fugitive Conflict Resolution
+nnoremap <leader>gd :Gvdiffsplit!<CR>
+nnoremap <leader>1 :diffget //2<CR>
+nnoremap <leader>3 :diffget //3<CR>
